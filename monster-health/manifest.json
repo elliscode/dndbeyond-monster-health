@@ -1,6 +1,6 @@
 {
   "name": "Monster Health",
-  "version": "0.0",
+  "version": "0.1",
   "manifest_version": 3,
   "content_scripts": [
     {
