@@ -1,0 +1,97 @@
+.monster-health-addon-health {
+    position:fixed;
+    top:46px;
+    right:0px;
+    width:260px;
+    height:70px;
+    background-color:#fff;
+    border-radius:10px;
+    z-index:1000;
+    border:1px #c53131 solid;
+}
+
+.monster-health-total-health-label {
+    position:absolute;
+    top:0px;
+    right:5px;
+    width:70px;
+    font-size:10px;
+    padding:5px;
+    margin:0px;
+    text-align:center;
+}
+
+.monster-health-total-health {
+    position:absolute;
+    bottom:5px;
+    right:5px;
+    width:70px;
+    height:45px;
+    border:1px #c53131 solid;
+    border-radius:10px;
+    font-size:25px;
+    padding:5px;
+    margin:0px;
+    text-align:center;
+}
+
+.monster-health-current-health-label {
+    position:absolute;
+    top:0px;
+    right:90px;
+    width:70px;
+    font-size:10px;
+    padding:5px;
+    margin:0px;
+    text-align:center;
+}
+.monster-health-current-health {
+    position:absolute;
+    bottom:5px;
+    right:90px;
+    width:70px;
+    height:45px;
+    border:1px #c53131 solid;
+    border-radius:10px;
+    font-size:25px;
+    padding:5px;
+    margin:0px;
+    text-align:center;
+}
+.monster-health-add-button {
+    position:absolute;
+    top:5px;
+    left:5px;
+    width:70px;
+    height:15px;
+    font-size:10px;
+    border:1px #c53131 solid;
+    border-radius:10px;
+    background-color:rgb(165, 204, 165);
+    margin:0px;
+}
+.monster-health-change-health {
+    position:absolute;
+    bottom:20px;
+    left:5px;
+    width:70px;
+    height:30px;
+    border:1px #c53131 solid;
+    border-radius:10px;
+    font-size:15px;
+    padding:5px;
+    margin:0px;
+    text-align:center;
+}
+.monster-health-remove-button {
+    position:absolute;
+    bottom:5px;
+    left:5px;
+    width:70px;
+    height:15px;
+    font-size:10px;
+    border:1px #c53131 solid;
+    border-radius:10px;
+    background-color:rgb(204, 165, 165);
+    margin:0px;
+}
