@@ -11,5 +11,6 @@
   ],
   "icons": {
     "216": "icon216.png"
-  }
+  },
+  "description": "Monster health tracker for dndbeyond.com"
 }
