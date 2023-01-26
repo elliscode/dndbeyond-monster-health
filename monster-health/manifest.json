@@ -8,5 +8,8 @@
       "js": ["monster-health.js"],
       "css": ["monster-health.css"]
     }
-  ]
+  ],
+  "icons": {
+    "216": "icon216.png"
+  }
 }
