@@ -1,5 +1,9 @@
 # DND Beyond Monster Health Tracker
 
+## To Install
+
+Go to the chrome web store listing here: https://chrome.google.com/webstore/detail/monster-health/gnodjanmafjgplabalghfobflnojbcoa
+
 ![](img/screenshot.png)
 
 ## Features
@@ -14,7 +18,7 @@
 
 - Input sanitization, to ensure only integers values are used
 
-## To Install
+## Developer Installation
 
 1. Navigate to `chrome://extensions` in your browser
 
