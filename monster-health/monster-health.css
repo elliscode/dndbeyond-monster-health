@@ -80,7 +80,7 @@
 .monster-health-add-button {
     position: absolute;
     top: 5px;
-    left: 5px;
+    left: 25px;
     width: 70px;
     height: 15px;
     font-size: 10px;
@@ -93,9 +93,9 @@
 .monster-health-change-health {
     position: absolute;
     bottom: 20px;
-    left: 5px;
+    left: 25px;
     width: 70px;
-    height: 30px;
+    height: 28px;
     border: 1px #c53131 solid;
     border-radius: 10px;
     font-size: 15px;
@@ -107,7 +107,7 @@
 .monster-health-remove-button {
     position: absolute;
     bottom: 5px;
-    left: 5px;
+    left: 25px;
     width: 70px;
     height: 15px;
     font-size: 10px;
@@ -138,4 +138,58 @@
     border-radius: 10px;
     background-color: rgb(204, 165, 165);
     margin: 0px;
+}
+
+.monster-health-item-indicator {
+    position:absolute;
+    top:0px;
+    left:0px;
+    width:22px;
+    height:68px;
+    padding:0px;
+    margin:0px;
+    border:0px;
+    border-radius: 10px 0px 0px 10px;
+}
+
+.monster-health-red {
+    background-color:#cb3a27;
+}
+.monster-health-blue {
+    background-color:#1b76c9;
+}
+.monster-health-green {
+    background-color:#62cb16;
+}
+.monster-health-brown {
+    background-color:#c97427;
+}
+.monster-health-purple {
+    background-color:#9847c9;
+}
+.monster-health-pink {
+    background-color:#eb75e1;
+}
+.monster-health-yellow {
+    background-color:#e5eb75;
+}
+#monster-health-color-picker {
+    position:absolute;
+    top:0px;
+    right:0px;
+    width:240px;
+    height:110px;
+    background-color:#fff;
+    z-index: 1001;
+    border-radius:20px 0px 20px 20px;
+    border:1px #c53131 solid;
+    line-height:0px;
+}
+.monster-health-color-button {
+    padding:0px;
+    width:40px;
+    height:40px;
+    border:1px #c53131 solid;
+    border-radius:10px;
+    margin:10px 0px 0px 10px;
 }

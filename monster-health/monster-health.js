@@ -14,6 +14,15 @@ const hashCode = (input) => {
     }
     return hash;
 };
+const colors = [
+    'monster-health-red',
+    'monster-health-blue',
+    'monster-health-green',
+    'monster-health-brown',
+    'monster-health-purple',
+    'monster-health-pink',
+    'monster-health-yellow'
+];
 const pageTitle = 'monster-health-data-' + hashCode(title.innerHTML);
 const div = document.createElement('div');
 div.classList.add('monster-health-container');
@@ -109,7 +118,15 @@ const actuallySave = () => {
             if (intRegex.exec(input.value)) {
                 value = parseInt(input.value);
             }
-            saveTheseBlocks.push({ 'current': value });
+            let color = '';
+            const button = block.getElementsByClassName('monster-health-item-indicator')[0];
+            for(const classItem of Array.of(...button.classList)) {
+                if(colors.includes(classItem)) {
+                    color = classItem;
+                    break;
+                }
+            }
+            saveTheseBlocks.push({ 'current': value, 'color': color });
         }
     }
     localStorage.setItem(pageTitle, JSON.stringify(saveTheseBlocks));
@@ -118,6 +135,7 @@ const generateMonsterHealth = (event, healthBar) => {
     if (!healthBar) {
         healthBar = { 'current': parsedHealth };
     }
+    const index = document.getElementsByClassName('monster-health-block').length;
     const healthDiv = document.createElement('div');
     healthDiv.classList.add('monster-health-block');
     {
@@ -176,13 +194,72 @@ const generateMonsterHealth = (event, healthBar) => {
         button.addEventListener('click', deleteHealthBlock);
         healthDiv.appendChild(button);
     }
+    {
+        const button = document.createElement('button');
+        button.classList.add('monster-health-item-indicator');
+        if(healthBar.hasOwnProperty('color') && colors.includes(healthBar.color)) {
+            button.classList.add(healthBar.color);
+        } else {
+            button.classList.add(colors[index % colors.length]);
+        }
+        button.addEventListener('click', showColorSelector);
+        healthDiv.appendChild(button);
+    }
     div.appendChild(healthDiv);
+    save();
+};
+const closeColorSelector = (event) => {
+    let picker = document.getElementById('monster-health-color-picker');
+    if(picker) {
+        picker.remove();
+    }
+};
+const showColorSelector = (event) => {
+    const right = (window.innerWidth - event.x) + 'px'
+    const top = event.y + 'px';
+    let picker = document.getElementById('monster-health-color-picker');
+    if(picker) {
+        picker.remove();
+    }
+    picker = document.createElement('div');
+    picker.id = 'monster-health-color-picker';
+    picker.style.top = top;
+    picker.style.right = right;
+
+    {
+        const button = document.createElement('button');
+        button.innerHTML = '&times;';
+        button.classList.add('monster-health-delete-bar')
+        button.addEventListener('click', closeColorSelector);
+        picker.appendChild(button);
+    }
+
+    for(const color of colors) {
+        const button = document.createElement('button');
+        button.classList.add('monster-health-color-button')
+        button.classList.add(color);
+        button.addEventListener('click', function () { changeColor(event.target, color); });
+        picker.appendChild(button);
+    }
+    
+    document.body.appendChild(picker);
+};
+const changeColor = (button, color) => {
+    closeColorSelector();
+    for(const classItem of Array.of(...button.classList)) {
+        if(colors.includes(classItem)) {
+            button.classList.remove(classItem);
+            index = colors.indexOf(classItem);
+            break;
+        }
+    }
+    button.classList.add(color);
     save();
 };
 addButton.addEventListener('click', generateMonsterHealth);
 if (healthBars.length == 0) {
     healthBars.push({ 'current': parsedHealth });
-}
+};
 for (const healthBar of healthBars) {
     generateMonsterHealth(undefined, healthBar);
-}
+};
