@@ -55,7 +55,7 @@
 .monster-health-current-health-label {
     position: absolute;
     top: 0px;
-    right: 90px;
+    right: 82px;
     width: 70px;
     font-size: 10px;
     padding: 5px;
@@ -66,7 +66,7 @@
 .monster-health-current-health {
     position: absolute;
     bottom: 5px;
-    right: 90px;
+    right: 82px;
     width: 70px;
     height: 45px;
     border: 1px #c53131 solid;
@@ -80,7 +80,7 @@
 .monster-health-add-button {
     position: absolute;
     top: 5px;
-    left: 25px;
+    left: 29px;
     width: 70px;
     height: 15px;
     font-size: 10px;
@@ -93,7 +93,7 @@
 .monster-health-change-health {
     position: absolute;
     bottom: 20px;
-    left: 25px;
+    left: 29px;
     width: 70px;
     height: 28px;
     border: 1px #c53131 solid;
@@ -107,7 +107,7 @@
 .monster-health-remove-button {
     position: absolute;
     bottom: 5px;
-    left: 25px;
+    left: 29px;
     width: 70px;
     height: 15px;
     font-size: 10px;
