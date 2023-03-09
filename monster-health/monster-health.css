@@ -174,7 +174,7 @@
     background-color:#e5eb75;
 }
 #monster-health-color-picker {
-    position:absolute;
+    position:fixed;
     top:0px;
     right:0px;
     width:240px;
