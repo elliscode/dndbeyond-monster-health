@@ -127,6 +127,16 @@
     background-color: rgb(165, 204, 165);
 }
 
+.monster-health-log-button {
+    position: absolute;
+    bottom: 0px;
+    right: 30px;
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    background-color: rgb(165, 204, 165);
+}
+
 .monster-health-delete-bar {
     position: absolute;
     top: 5px;

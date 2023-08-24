@@ -24,6 +24,7 @@ const colors = [
     'monster-health-yellow'
 ];
 const pageTitle = 'monster-health-data-' + hashCode(title.innerHTML);
+const logTitle = pageTitle + '-logs';
 const div = document.createElement('div');
 div.classList.add('monster-health-container');
 document.body.appendChild(div);
@@ -31,6 +32,10 @@ const addButton = document.createElement('button');
 addButton.classList.add('monster-health-add-another-button');
 addButton.innerHTML = '&plus;';
 div.appendChild(addButton);
+const logButton = document.createElement('button');
+logButton.classList.add('monster-health-log-button');
+logButton.innerHTML = '&#128210;';
+div.appendChild(logButton);
 let healthBars = [];
 const loadFromLocalStorage = () => {
     try {
@@ -52,6 +57,28 @@ const loadFromLocalStorage = () => {
     return [];
 };
 healthBars = loadFromLocalStorage();
+let logs = [];
+const loadLogsFromLocalStorage = () => {
+    try {
+        const storedValue = JSON.parse(localStorage.getItem(logTitle));
+        if (Array.isArray(storedValue) && storedValue.length > 0) {
+            let goodData = [];
+            for (const item of storedValue) {
+                if (item.hasOwnProperty('timestamp')
+                    && item.hasOwnProperty('healthBars')) {
+                    goodData.push(item)
+                }
+            }
+            if (goodData) {
+                return goodData;
+            }
+        }
+    } catch (e) {
+        localStorage.removeItem(logTitle)
+    }
+    return [];
+};
+logs = loadLogsFromLocalStorage();
 const add = (event) => {
     let parent = event.target;
     while (parent && !parent.classList.contains('monster-health-block')) {
@@ -129,7 +156,21 @@ const actuallySave = () => {
             saveTheseBlocks.push({ 'current': value, 'color': color });
         }
     }
+
+    const mostRecentItem = logs[0];
+    if (!mostRecentItem || JSON.stringify(mostRecentItem.healthBars) != JSON.stringify(saveTheseBlocks)) {
+        logs.unshift({
+            'timestamp': (new Date()).toString(),
+            'healthBars': [...saveTheseBlocks]
+        })
+    }
+
+    while(logs.length > 32) {
+        logs.shift();
+    }
+
     localStorage.setItem(pageTitle, JSON.stringify(saveTheseBlocks));
+    localStorage.setItem(logTitle, JSON.stringify(logs));
 };
 const generateMonsterHealth = (event, healthBar) => {
     if (!healthBar) {
