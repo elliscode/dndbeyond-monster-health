@@ -1,0 +1,23 @@
+hello and welcome to monster health
+
+To use the app, navigate to DNDbeyond.com, navigate to a monster page, and the extension will automatically show in the top-right
+
+The current and max health are taken directly from the "Hit Points" value shown on the sheet
+
+You can add damage by typing a number in the left box and pressing the "Damage" button
+
+Similarly, you can also add healing by pressing the "Heal" button
+
+You can also directly edit the monsters health by typing a new value into the "Current" health box
+
+You can add multiple monsters health bars by pressing the "Add" button on the bottom-right 
+
+And delete monster health bars by pressing the "x" in the top-right
+
+To change the color code of the monster, click on the color tab on the left, and the color selector will show.
+
+To view a log of the past 32 changes you have made, press the log icon in the bottom right, and the log window will show
+
+To load an item from the log, click it with your mouse and the log value will overwrite the current values
+
+This extension uses localstorage to save your monster status, so if you close the page, and navigate back, you will see the current and historical values are saved 
