@@ -133,6 +133,8 @@ const save = (e) => {
         clearTimeout(saveTimeout);
     }
     saveTimeout = setTimeout(actuallySave, 1000);
+    closeLogUi();
+    closeColorSelector();
 };
 const actuallySave = () => {
     let saveTheseBlocks = [];
@@ -166,7 +168,11 @@ const actuallySave = () => {
     }
 
     while(logs.length > 32) {
-        logs.shift();
+        logs.pop();
+    }
+
+    if (Array.from(document.getElementsByClassName('monster-health-log')).length > 0) {
+        showLogUi();
     }
 
     localStorage.setItem(pageTitle, JSON.stringify(saveTheseBlocks));
@@ -256,6 +262,8 @@ const closeColorSelector = (event) => {
     }
 };
 const showColorSelector = (event) => {
+    closeColorSelector();
+    closeLogUi();
     const right = (window.innerWidth - event.x) + 'px'
     const top = event.y + 'px';
     let picker = document.getElementById('monster-health-color-picker');
@@ -297,7 +305,112 @@ const changeColor = (button, color) => {
     button.classList.add(color);
     save();
 };
+const closeLogUi = (event) => {
+    let existingModals = Array.from(document.getElementsByClassName('monster-health-log'));
+    while (existingModals.length > 0) {
+        existingModals.shift().remove();
+    }
+};
+const showLogUi = (event) => {
+    closeLogUi();
+    closeColorSelector();
+    for (let logItem of logs) {
+        console.log(logItem);
+    }
+    let logBlock = document.createElement('div');
+    logBlock.classList.add('monster-health-log');
+
+    let titleBar = document.createElement('div');
+    titleBar.classList.add('monster-health-log-title-bar');
+    
+    let title = document.createElement('p');
+    title.style.display = 'inline-block';
+    title.innerText = 'HISTORY';
+    titleBar.appendChild(title);
+    
+    let clearButton = document.createElement('button');
+    clearButton.classList.add('monster-health-clear-log-button');
+    clearButton.style.display = 'inline-block';
+    clearButton.innerText = 'CLEAR HISTORY';
+    clearButton.addEventListener('click', clearHistory);
+    titleBar.appendChild(clearButton);
+
+    logBlock.appendChild(titleBar);
+
+    let closeButton = document.createElement('button');
+    closeButton.classList.add('monster-health-close-button-for-log');
+    closeButton.innerHTML = '&times;';
+    closeButton.addEventListener('click', closeLogUi);
+    logBlock.appendChild(closeButton);
+
+    let scrollBlock = document.createElement('div');
+    scrollBlock.classList.add('monster-health-scroll-window-log');
+    logBlock.appendChild(scrollBlock);
+
+    let index = 0;
+    for (let logItem of logs) {
+        let logBlockItem = document.createElement('div');
+        logBlockItem.classList.add('monster-health-log-block-item');
+        logBlockItem.setAttribute('log-data-index', index);
+        logBlockItem.addEventListener('click', loadFromHistory)
+
+        for (let healthBar of logItem.healthBars) {
+            let miniHealthDiv = document.createElement('div');
+            miniHealthDiv.classList.add(healthBar.color);
+            miniHealthDiv.classList.add('monster-health-mini-block');
+
+            let healthContent = document.createElement('div');
+            healthContent.classList.add('monster-health-mini-content')
+            healthContent.innerText = healthBar.current;
+            miniHealthDiv.appendChild(healthContent);
+
+            logBlockItem.appendChild(miniHealthDiv);
+        }
+
+        if (logItem.healthBars.length == 0) {
+            let miniHealthDiv = document.createElement('div');
+            miniHealthDiv.classList.add('monster-health-mini-block');
+
+            let healthContent = document.createElement('div');
+            healthContent.innerText = 'none';
+            healthContent.style.textAlign = 'center';
+            miniHealthDiv.appendChild(healthContent);
+
+            logBlockItem.appendChild(miniHealthDiv);
+        }
+
+        scrollBlock.appendChild(logBlockItem);
+        index++;
+    }
+
+    document.body.appendChild(logBlock);
+};
+const deleteAllMonsterBlocks = (event) => {
+    let allBlocks = Array.from(document.getElementsByClassName('monster-health-block'));
+    while (allBlocks.length > 0) {
+        allBlocks.shift().remove();
+    }
+};
+const loadFromHistory = (event) => {
+    let historyBlock = event.target;
+    while (!!historyBlock && !historyBlock.classList.contains('monster-health-log-block-item')) {
+        historyBlock = historyBlock.parentElement;
+    }
+
+    deleteAllMonsterBlocks();
+    let historicalHealthBars = logs[parseInt(historyBlock.getAttribute('log-data-index'))].healthBars;
+    for (const healthBar of historicalHealthBars) {
+        generateMonsterHealth(undefined, healthBar);
+    }
+    closeLogUi();
+    save();
+};
+const clearHistory = (event) => {
+    logs = [];
+    actuallySave();
+};
 addButton.addEventListener('click', generateMonsterHealth);
+logButton.addEventListener('click', showLogUi);
 if (healthBars.length == 0) {
     healthBars.push({ 'current': parsedHealth });
 };
