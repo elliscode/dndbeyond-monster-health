@@ -266,7 +266,6 @@ const closeColorSelector = (event) => {
 };
 const showColorSelector = (event) => {
     closeColorSelector();
-    closeLogUi();
     const right = (window.innerWidth - event.x) + 'px'
     const top = event.y + 'px';
     let picker = document.getElementById('monster-health-color-picker');
