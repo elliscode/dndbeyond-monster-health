@@ -255,12 +255,15 @@
     width:100%;
     background-color: #fff;
     border-radius: 10px;
-    border: 1px #c53131 solid;
+    border: 1px white solid;
     z-index:1000;
     margin-top:2px;
     overflow:hidden;
+    cursor:pointer;
 }
-
+.monster-health-log-block-item:hover {
+    border: 1px #c53131 solid;    
+}
 .monster-health-mini-block {
     position:relative;
     display:inline-block;

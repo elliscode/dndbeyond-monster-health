@@ -91,9 +91,10 @@ const add = (event) => {
     if (isFinite(modifier)) {
         const newValue = value + modifier;
         currentHealth.value = newValue;
-        save();
+        actuallySave();
     }
     change.value = '';
+    change.focus();
 };
 const remove = (event) => {
     let parent = event.target;
@@ -107,9 +108,10 @@ const remove = (event) => {
     if (isFinite(modifier)) {
         const newValue = value - modifier;
         currentHealth.value = newValue;
-        save();
+        actuallySave();
     }
     change.value = '';
+    change.focus();
 };
 const deleteHealthBlock = (event) => {
     let parent = event.target;
@@ -117,7 +119,7 @@ const deleteHealthBlock = (event) => {
         parent = parent.parentElement;
     }
     parent.remove();
-    save();
+    actuallySave();
 };
 const numbersOnly = (event) => {
     const newValue = event.target.value;
@@ -133,7 +135,6 @@ const save = (e) => {
         clearTimeout(saveTimeout);
     }
     saveTimeout = setTimeout(actuallySave, 1000);
-    closeLogUi();
     closeColorSelector();
 };
 const actuallySave = () => {
@@ -178,7 +179,7 @@ const actuallySave = () => {
     localStorage.setItem(pageTitle, JSON.stringify(saveTheseBlocks));
     localStorage.setItem(logTitle, JSON.stringify(logs));
 };
-const generateMonsterHealth = (event, healthBar) => {
+const generateMonsterHealth = (event, healthBar, dontSave) => {
     if (!healthBar) {
         healthBar = { 'current': parsedHealth };
     }
@@ -253,7 +254,9 @@ const generateMonsterHealth = (event, healthBar) => {
         healthDiv.appendChild(button);
     }
     div.appendChild(healthDiv);
-    save();
+    if (!dontSave) {
+        actuallySave();
+    }
 };
 const closeColorSelector = (event) => {
     let picker = document.getElementById('monster-health-color-picker');
@@ -303,7 +306,7 @@ const changeColor = (button, color) => {
         }
     }
     button.classList.add(color);
-    save();
+    actuallySave();
 };
 const closeLogUi = (event) => {
     let existingModals = Array.from(document.getElementsByClassName('monster-health-log'));
@@ -314,9 +317,6 @@ const closeLogUi = (event) => {
 const showLogUi = (event) => {
     closeLogUi();
     closeColorSelector();
-    for (let logItem of logs) {
-        console.log(logItem);
-    }
     let logBlock = document.createElement('div');
     logBlock.classList.add('monster-health-log');
 
@@ -400,10 +400,10 @@ const loadFromHistory = (event) => {
     deleteAllMonsterBlocks();
     let historicalHealthBars = logs[parseInt(historyBlock.getAttribute('log-data-index'))].healthBars;
     for (const healthBar of historicalHealthBars) {
-        generateMonsterHealth(undefined, healthBar);
+        generateMonsterHealth(undefined, healthBar, true);
     }
     closeLogUi();
-    save();
+    actuallySave();
 };
 const clearHistory = (event) => {
     logs = [];
@@ -415,5 +415,5 @@ if (healthBars.length == 0) {
     healthBars.push({ 'current': parsedHealth });
 };
 for (const healthBar of healthBars) {
-    generateMonsterHealth(undefined, healthBar);
+    generateMonsterHealth(undefined, healthBar, true);
 };
