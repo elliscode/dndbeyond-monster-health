@@ -33,3 +33,13 @@ Go to the chrome web store listing here: https://chrome.google.com/webstore/deta
 ![](img/install_002.png)
 
 4. The extension should now show up in your list of installed extensions, view a monster sheet to see the extension in action!
+
+## Developer Release
+
+run this command to generate a `.zip` file
+
+```
+zip -jr monster-health.zip monster-health
+```
+
+upload the `.zip` file to the chrome developer console

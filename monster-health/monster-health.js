@@ -1,5 +1,10 @@
-const healthLabel = Array.from(document.querySelectorAll('span.mon-stat-block__attribute-label')).find(element => element.innerText.includes('Hit Points'));
-const healthValueSpan = healthLabel.nextElementSibling.querySelector('span.mon-stat-block__attribute-data-value');
+const is2024 = Array.from(document.querySelectorAll('span.mon-stat-block-2024__attribute-label')).length > 0;
+const isLegacy = Array.from(document.querySelectorAll('span.mon-stat-block__attribute-label')).length > 0;
+const isMonsterSheet = is2024 || isLegacy;
+if (isMonsterSheet) {
+const classSuffix = is2024 ? '-2024' : '';
+const healthLabel = Array.from(document.querySelectorAll(`span.mon-stat-block${classSuffix}__attribute-label`)).find(element => element.innerText.includes('Hit Points') || element.innerText.includes('HP'));
+const healthValueSpan = healthLabel.nextElementSibling.querySelector(`span.mon-stat-block${classSuffix}__attribute-data-value`);
 const parsedHealth = parseInt(healthValueSpan.innerText);
 const title = document.querySelector('h1.page-title');
 const intRegex = /^[-]*\d+$/;
@@ -415,4 +420,5 @@ if (healthBars.length == 0) {
 };
 for (const healthBar of healthBars) {
     generateMonsterHealth(undefined, healthBar, true);
-};
+};    
+}
